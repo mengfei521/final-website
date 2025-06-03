@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>我的导航页</title>
+  <title>萌飞的导航</title>
   <!-- 页面样式定义开始 -->
   <style>
     /* 全局设置，去除默认间距并设置盒模型为 border-box */
@@ -212,9 +212,115 @@
     }
   </style>
   <!-- 页面样式定义结束 -->
+
+  <style>
+    /* 基础样式 */
+    body.default-theme {
+      --bg-color: #f0f2f5;
+      --card-bg: white;
+      --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      --text-color: #333;
+      --title-color: #333;
+    }
+
+    /* 黑夜模式 */
+    body.dark-theme {
+      --bg-color: #1e1e1e;
+      --card-bg: #2c2c2c;
+      --card-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+      --text-color: #ffffff;
+      --title-color: #ffffff;
+      /* 白色文字 */
+    }
+
+    /* 少女梦幻五彩模式 */
+    body.colorful-theme {
+      --bg-color: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #fbc2eb, #a6c1ee);
+      --card-bg: rgba(255, 255, 255, 0.6);
+      --card-shadow: 0 4px 20px rgba(255, 105, 180, 0.5);
+      --text-color: #333;
+      --title-color: #333;
+    }
+
+    /* 通用 */
+    body {
+      background: var(--bg-color);
+      /* ==========控制渐变时间 ============*/
+      /* transition: background 0.2s ease, color 0.2s ease; */
+
+    }
+
+    .sidebar,
+    .search-container,
+    .card {
+      background: var(--card-bg);
+      box-shadow: var(--card-shadow);
+      color: var(--text-color);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+    }
+
+    .sidebar a {
+      color: var(--text-color);
+      /* 导航栏字体跟着主题变化 */
+    }
+
+    .search-container {
+      border: 1px solid transparent;
+      /* 透明边框 */
+    }
+
+    .section-title {
+      color: var(--title-color);
+    }
+
+    .search-input {
+      background: transparent;
+      color: var(--text-color);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(100, 149, 237, 0.4);
+    }
+  </style>
+
 </head>
 
+
 <body>
+
+  <!-- <button onclick="toggleTheme()" style="
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background-color: #b9cdf8;
+  color: white;
+  backdrop-filter: blur(20px); 
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 9999;">切换风格</button> -->
+
+  <button onclick="toggleTheme()" style="
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2); /* 半透明 */
+  backdrop-filter: blur(10px); /* 毛玻璃效果 */
+  -webkit-backdrop-filter: blur(10px); /* 兼容Safari */
+  color: rgb(190, 220, 255);
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* 柔和阴影 */
+  z-index: 9999;
+  transition: all 0.3s ease;
+">切换风格</button>
 
   <!-- ========== 左侧导航栏 ========== -->
   <!-- 左侧导航栏区域 -->
@@ -253,9 +359,10 @@
 
   <!-- ========== 主体内容 ========== -->
   <!-- 主体内容区域 -->
+
   <div class="main-content">
     <!-- 搜索框 -->
-    <!-- 搜索框部分 -->
+
     <div class="search-bar-wrapper">
       <form class="search-container" id="searchForm" action="https://www.google.com/search" method="GET"
         target="_blank">
@@ -272,7 +379,6 @@
         <input class="search-input" type="text" name="q" id="searchInput" placeholder="请输入搜索内容">
       </form>
     </div>
-
 
     <!-- ========== 搜索引擎脚本逻辑 ========== -->
     <!-- 搜索引擎切换功能的脚本开始 -->
@@ -354,6 +460,10 @@
           <span>Google</span>
         </a>
 
+        <a href="https://g.luciaz.me" title="浙大镜像，答案分别是：心灵之约、水朝夕、csxy@123" target="_blank" class="card">
+          <img src="icons/google镜像.png" alt="Luciaz">
+          <span>谷歌镜像</span>
+        </a>
 
         <a href="https://mail.163.com/" target="_blank" class="card">
           <img src="https://mail.163.com/favicon.ico" alt="163邮箱">
@@ -375,12 +485,12 @@
         </a>
 
         <a href="https://www.youtube.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=qLVB1tIe9Ts9&format=png&color=000000" alt="YouTube">
+          <img src="icons/youtube.png" alt="YouTube">
           <span>YouTube</span>
         </a>
 
         <a href="https://www.instagram.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=Xy10Jcu1L2Su&format=png&color=000000" alt="Instagram">
+          <img src="icons/ins.png" alt="Instagram">
           <span>Instagram</span>
         </a>
 
@@ -425,7 +535,7 @@
         </a>
 
         <a href="https://www.rottentomatoes.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=18102&format=png&color=000000" alt="Rotten Tomatoes">
+          <img src="icons/烂番茄.png" alt="Rotten Tomatoes">
           <span>烂番茄</span>
         </a>
         <a href="https://www.taobao.com/" target="_blank" class="card">
@@ -451,7 +561,7 @@
       <div class="card-grid">
 
         <a href="https://chatgpt.com/" target="_blank" class="card">
-          <img src="https://chatgpt.com/favicon.ico" alt="ChatGPT">
+          <img src="icons/chatgpt.png" alt="ChatGPT">
           <span>ChatGPT</span>
         </a>
 
@@ -466,7 +576,7 @@
         </a>
 
         <a href="https://felo.ai/search" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=12773&format=png&color=000000" alt="felo.ai">
+          <img src="icons/felo.png" alt="felo.ai">
           <span>felo.ai</span>
         </a>
 
@@ -486,8 +596,13 @@
         </a>
 
         <a href="https://openai.com/sora/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=JV8I2qAOf5Ts&format=png&color=000000" alt="Sora">
+          <img src="icons/sora.png" alt="Sora">
           <span>Sora</span>
+        </a>
+
+        <a href="https://amymind.com/" title="AI生成思维导图等" target="_blank" class="card">
+          <img src="https://amymind.com/favicon.ico" alt="Amymind">
+          <span>Amymind</span>
         </a>
 
       </div>
@@ -510,13 +625,18 @@
           <span>虎扑</span>
         </a>
 
+        <a href="https://theinitium.com/" target="_blank" class="card">
+          <img src="icons/端传媒.png" alt="端传媒">
+          <span>端传媒</span>
+        </a>
+
         <a href="https://tophub.today/" target="_blank" class="card">
           <img src="https://www.economist.com/favicon.ico" alt="经济学人">
           <span>经济学人</span>
         </a>
 
         <a href="https://www.bbc.com/news" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=21001&format=png&color=000000" alt="BBC图标">
+          <img src="icons/bbc.png" alt="BBC图标">
           <span>BBC</span>
         </a>
 
@@ -564,12 +684,12 @@
         </a>
 
         <a href="https://www.ilovepdf.com/zh-cn" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=13417&format=png&color=000000" alt="ilovepdf">
+          <img src="icons/ilovepdf.png" alt="ilovepdf">
           <span>ilovepdf</span>
         </a>
 
         <a href="https://echarts.apache.org/zh/index.html" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=3005&format=png&color=000000" alt="echarts">
+          <img src="icons/echarts.png" alt="echarts">
           <span>echarts</span>
         </a>
 
@@ -584,7 +704,7 @@
         </a>
 
         <a href="https://convertio.co/zh/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=PCdT1Uvn33ob&format=png&color=000000" alt="文件转换">
+          <img src="icons/文件转换.png" alt="文件转换">
           <span>文件转换</span>
         </a>
 
@@ -594,37 +714,37 @@
         </a>
 
         <a href="https://www.draw.io/?lang=zh" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=1765&format=png&color=000000" alt="在线流程图">
+          <img src="icons/在线流程图.png" alt="在线流程图">
           <span>在线流程图</span>
         </a>
 
         <a href="https://www.linshiyouxiang.net/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=eKlyMs0XteXZ&format=png&color=000000" alt="临时邮箱">
+          <img src="icons/临时邮箱.png" alt="临时邮箱">
           <span>临时邮箱</span>
         </a>
 
         <a href="https://www.storytrain.info/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=124132&format=png&color=000000" alt="临时短信">
+          <img src="icons/临时短信.png" alt="临时短信">
           <span>临时短信</span>
         </a>
 
         <a href="https://jidrop.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=25298&format=png&color=000000" alt="Jidrop">
+          <img src="icons/隔空投送.png" alt="Jidrop">
           <span>隔空投送</span>
         </a>
 
         <a href="https://chartcube.alipay.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=Tt7IaodtMK6g&format=png&color=000000" alt="图表魔方">
+          <img src="icons/图表魔方.png" alt="图表魔方">
           <span>图表魔方</span>
         </a>
 
         <a href="https://123apps.com/cn/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=43630&format=png&color=000000" alt="123apps">
+          <img src="icons/123apps.png" alt="123apps">
           <span>123apps</span>
         </a>
 
         <a href="https://www.autodraw.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=LIYlwUkG7Fpq&format=png&color=000000" alt="Autodraw">
+          <img src="icons/Autodraw.png" alt="Autodraw">
           <span>Autodraw</span>
         </a>
 
@@ -633,16 +753,16 @@
           <span>网络测速</span>
         </a>
         <a href="https://xxss0903.github.io/drawstamputils/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=89604&format=png&color=000000" alt="印章制作">
+          <img src="icons/印章制作.png" alt="印章制作">
           <span>印章制作</span>
         </a>
 
         <a href="https://toolwa.com/record/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=67339&format=png&color=000000" alt="在线录屏">
+          <img src="icons/在线录屏.png" alt="在线录屏">
           <span>在线录屏</span>
         </a>
         <a href="https://risu.io/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=48525&format=png&color=000000" alt="Risu">
+          <img src="icons/短网址生成.png" alt="Risu">
           <span>短网址生成</span>
         </a>
 
@@ -654,7 +774,7 @@
       <div class="card-grid">
 
         <a href="https://www.164580.com/biaozhun/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=4rbS0AOnFcGK&format=png&color=000000" alt="标准件">
+          <img src="icons/易紧通.png" alt="标准件">
           <span>易紧通</span>
         </a>
 
@@ -687,8 +807,14 @@
           <span>坚果云</span>
         </a>
 
+        <a href="https://www.ijiaodui.com/" target="_blank" class="card">
+          <img src="icons/爱校对.png" alt="爱校对">
+          <span>爱校对</span>
+        </a>
+
+
         <a href="https://pearocr.com/#/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=n2mTL61rSPD4&format=png&color=000000" alt="在线OCR">
+          <img src="icons/在线OCR.png" alt="在线OCR">
           <span>在线OCR</span>
         </a>
 
@@ -697,15 +823,13 @@
           <span>公式识别</span>
         </a>
 
-
-
         <a href="https://www.1ppt.com/moban/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=Hx8yI5YpveM8&format=png&color=000000" alt="第一PPT">
+          <img src="icons/第一PPT.png" alt="第一PPT">
           <span>第一PPT</span>
         </a>
 
         <a href="https://www.ypppt.com/moban/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=iRjp6M8rmmBz&format=png&color=000000" alt="优品PPT">
+          <img src="icons/优品PPT.png" alt="优品PPT">
           <span>优品PPT</span>
         </a>
 
@@ -790,18 +914,23 @@
         </a>
 
         <a href="https://24hbook.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=fH22K8x6Yvz6&format=png&color=000000" alt="24hbook">
+          <img src="icons/24book.png" alt="24hbook">
           <span>24hbook</span>
         </a>
 
         <a href="https://book.tstrs.me/search" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=23662&format=png&color=000000" alt="SaltyLeo 的书架">
-          <span>SaltyLeo 的书架</span>
+          <img src="icons/SaltyLeo的书架.png" alt="SaltyLeo 的书架">
+          <span>SaltyLeo的书架</span>
         </a>
 
         <a href="https://liber3.eth.limo/#/" target="_blank" class="card">
           <img src="icons/liber3.png " alt="liber3">
           <span>liber3</span>
+        </a>
+
+        <a href="https://www.jiumodiary.com/" target="_blank" class="card">
+          <img src="icons/摩鸠搜书.png" alt="九莫日记">
+          <span>摩鸠搜书</span>
         </a>
 
         <a href="https://weread.qq.com/" target="_blank" class="card">
@@ -810,12 +939,17 @@
         </a>
 
         <a href="http://www.53bk.com/baokan/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=kxwDv5qhqywK&format=png&color=000000" alt="在线报刊">
+          <img src="icons/在线报刊.png" alt="在线报刊">
           <span>在线报刊</span>
         </a>
 
+        <a href="https://www.zgbk.com/" target="_blank" class="card">
+          <img src="icons/大百科.png" alt="中国百科网">
+          <span>中国百科网</span>
+        </a>
+
         <a href="https://itpanda.net/book/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=81109&format=png&color=000000" alt="IT熊猫">
+          <img src="icons/it熊猫.png" alt="IT熊猫">
           <span>IT熊猫</span>
         </a>
 
@@ -825,7 +959,7 @@
         </a>
 
         <a href="https://www.manhuagui.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=Vf0tj5N6yDxC&format=png&color=000000" alt="漫画柜">
+          <img src="icons/漫画柜.png" alt="漫画柜">
           <span>漫画柜</span>
         </a>
 
@@ -837,12 +971,12 @@
       <div class="card-grid">
 
         <a href="https://cupfox.love/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=KPkL1YIFKeFp&format=png&color=000000" alt="茶杯狐">
+          <img src="icons/茶杯狐.png" alt="茶杯狐">
           <span>茶杯狐</span>
         </a>
 
         <a href="https://www.netflixgc.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=8z1xDgcI6KE7&format=png&color=000000" alt="奈飞工厂">
+          <img src="icons/奈飞工厂.png" alt="奈飞工厂">
           <span>奈飞工厂</span>
         </a>
 
@@ -856,13 +990,18 @@
           <span>低端影视</span>
         </a>
 
+        <a href="https://www.jdys.art/" target="_blank" class="card">
+          <img src="https://www.jdys.art/favicon.ico" alt="京东云">
+          <span>绝对影视</span>
+        </a>
+
         <a href="https://www.czzymovie.com/" target="_blank" class="card">
           <img src="https://www.czzymovie.com/favicon.ico" alt="厂长资源">
           <span>厂长资源</span>
         </a>
 
         <a href="https://www.zxzjhd.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=mEZW8JKWPMny&format=png&color=000000" alt="在线之家">
+          <img src="icons/在线之家.png" alt="在线之家">
           <span>在线之家</span>
         </a>
 
@@ -872,7 +1011,7 @@
         </a>
 
         <a href="http://www.iyinghua.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=kVCsPf3zh3h9&format=png&color=000000" alt="樱花动漫">
+          <img src="icons/樱花动漫.png" alt="樱花动漫">
           <span>樱花动漫</span>
         </a>
 
@@ -881,7 +1020,7 @@
           <span>AGE动漫</span>
         </a>
 
-        <a href="https://audiomack.com/" target="_blank" class="card">
+        <a href="https://audiomack.com/" title="按照歌手专辑进行收听" target="_blank" class="card">
           <img src="https://audiomack.com/favicon.ico" alt="audiomack">
           <span>audiomack</span>
         </a>
@@ -892,7 +1031,7 @@
         </a>
 
         <a href="https://happy.alang.run/#/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=kjouk7bBK9Nf&format=png&color=000000" alt="一起听歌吧">
+          <img src="icons/一起听歌.png" alt="一起听歌吧">
           <span>一起听歌吧</span>
         </a>
 
@@ -902,14 +1041,15 @@
         </a>
 
         <a href="https://www.tunemymusic.com/zh/transfer" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=2MGV2VWkHLh9&format=png&color=000000" alt="歌单转换">
+          <img src="icons/歌单转换.png" alt="歌单转换">
           <span>歌单转换</span>
         </a>
 
-        <a href="https://www.netflix.com/browse" target="_blank" class="card">
-          <img src="https://www.netflix.com/favicon.ico" alt="奈飞">
-          <span>Netflix</span>
+        <a href="https://jx.m3u8.tv/jiexi/?url&ref=" title="网址=后面添加优爱腾资源网址" target="_blank" class="card">
+          <img src="icons/会员解析.png" alt="解析">
+          <span>会员解析</span>
         </a>
+
       </div>
     </div>
 
@@ -943,12 +1083,12 @@
         </a>
 
         <a href="https://www.dygod.net/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=57463&format=png&color=000000" alt="电影天堂">
+          <img src="icons/电影天堂.png" alt="电影天堂">
           <span>电影天堂</span>
         </a>
 
         <a href="https://www.btbuluo.net/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=43229&format=png&color=000000" alt="BT部落天堂">
+          <img src="icons/bt部落.png" alt="BT部落天堂">
           <span>BT部落天堂</span>
         </a>
 
@@ -962,12 +1102,17 @@
           <span>千帆搜索</span>
         </a>
 
+        <a href="https://www.haokongbu.top/" target="_blank" class="card">
+          <img src="https://www.haokongbu.top/favicon.ico" alt="好空部">
+          <span>好恐怖</span>
+        </a>
+
         <a href="https://xiongdipan.com/" target="_blank" class="card">
           <img src="https://www.xiongdipan.com/favicon.ico" alt="兄弟盘">
           <span>兄弟盘</span>
         </a>
         <a href="https://www.alipansou.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=BzIyHM6htqPD&format=png&color=000000" alt="猫狸盘搜">
+          <img src="icons/猫狸3.png" alt="猫狸盘搜">
           <span>猫狸盘搜</span>
         </a>
         <a href="https://pan666.net/t/video" target="_blank" class="card">
@@ -993,27 +1138,27 @@
         </a>
 
         <a href="https://www.pinterest.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=63676&format=png&color=000000" alt="Pinterest">
+          <img src="icons/pinterest.png" alt="Pinterest">
           <span>Pinterest</span>
         </a>
 
         <a href="https://stocksnap.io/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=EXb4VsMctxy4&format=png&color=000000" alt="stocksnap">
+          <img src="icons/stocksnap.png" alt="stocksnap">
           <span>stocksnap</span>
         </a>
 
         <a href="https://www.skypixel.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=PfN95KmgejZB&format=png&color=000000" alt="天空之城">
+          <img src="icons/天空之城.png" alt="天空之城">
           <span>天空之城</span>
         </a>
 
         <a href="https://www.behance.net/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=13655&format=png&color=000000" alt="Behance">
+          <img src="icons/behance.png" alt="Behance">
           <span>Behance</span>
         </a>
 
         <a href="https://www.mixamo.com/#/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=6sO1uvrVytKE&format=png&color=000000" alt="mixamo">
+          <img src="icons/mixamo.png" alt="mixamo">
           <span>mixamo</span>
         </a>
 
@@ -1022,8 +1167,13 @@
           <span>mixkit</span>
         </a>
 
+        <a href="https://igoutu.cn/icons" target="_blank" class="card">
+          <img src="icons/图标库.png" alt="图标库">
+          <span>图标库</span>
+        </a>
+
         <a href="https://pictogram2.com/?lang=en" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=H1g7m4MBC7ZF&format=png&color=000000" alt="日式图标">
+          <img src="icons/日式图标.png" alt="日式图标">
           <span>日式图标</span>
         </a>
 
@@ -1033,7 +1183,7 @@
         </a>
 
         <a href="https://www.miao3.cn/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=XA3uAyBFk8kW&format=png&color=000000" alt="喵闪字库">
+          <img src="icons/字库.png" alt="喵闪字库">
           <span>喵闪字库</span>
         </a>
 
@@ -1062,6 +1212,8 @@
           <span>渐变色</span>
         </a>
 
+
+
       </div>
     </div>
 
@@ -1073,6 +1225,13 @@
           <img src="https://img.icons8.com/?size=100&id=dwfuFrQfNSOo&format=png&color=000000" alt="在线ps">
           <span>在线ps</span>
         </a>
+
+
+        <a href="https://www.figma.com/files/team/" target="_blank" class="card">
+          <img src="https://img.icons8.com/?size=100&id=zfHRZ6i1Wg0U&format=png&color=000000" alt="Figma">
+          <span>Figma</span>
+        </a>
+
         <a href="https://www.polaxiong.com/" target="_blank" class="card">
           <img src="https://img.icons8.com/?size=100&id=63814&format=png&color=000000" alt="在线编辑器">
           <span>图片调色</span>
@@ -1127,17 +1286,18 @@
         </a>
 
         <a href="https://appstorrent.ru/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=BjPWRzV6AZEE&format=png&color=000000" alt="appstorrent">
+          <img src="icons/appstorrent.png" alt="appstorrent">
           <span>appstorrent</span>
         </a>
 
         <a href="https://pan.lanzoui.com/b0f1t9l0b" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=tpIcYSg4KMn0&format=png&color=000000" alt="Windows激活">
+          <img src="icons/windows激活.png" alt="Windows激活">
           <span>Windows激活</span>
         </a>
 
+
         <a href="https://love.appinn.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=69428&format=png&color=000000" alt="小众软件">
+          <img src="https://love.appinn.com/favicon.ico" alt="小众软件">
           <span>小众软件</span>
         </a>
 
@@ -1162,7 +1322,7 @@
         </a>
 
         <a href="https://rutracker.org/forum/index.php" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=40659&format=png&color=000000" alt="Rutracker">
+          <img src="icons/Rutracker.png" alt="Rutracker">
           <span>Rutracker</span>
         </a>
 
@@ -1174,17 +1334,17 @@
       <div class="card-grid">
 
         <a href="https://nodes-escape.hzfe.org/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=18VwcCI33Mly&format=png&color=000000" alt="文字密室逃脱">
+          <img src="icons/密室逃脱.png" alt="文字密室逃脱">
           <span>文字密室逃脱</span>
         </a>
 
         <a href="https://lab.ur1.fun/FCGames/#/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=9JhWj0txsxW7&format=png&color=000000" alt="在线经典游戏">
+          <img src="icons/在线经典游戏.png" alt="在线经典游戏">
           <span>在线经典游戏</span>
         </a>
 
         <a href="https://www.yikm.net/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=9CzFKrubmTFc&format=png&color=000000" alt="小霸王">
+          <img src="icons/小霸王.png" alt="小霸王">
           <span>小霸王</span>
         </a>
 
@@ -1194,33 +1354,91 @@
         </a>
 
         <a href="https://www.adultswim.com/etcetera/choir/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=TI1iKOrEX6vW&format=png&color=000000" alt="choir">
+          <img src="icons/choir.png" alt="choir">
           <span>choir</span>
         </a>
 
         <a href="https://pissang.github.io/little-big-city/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=w_xowLLxvs0g&format=png&color=000000" alt="三维城市">
+          <img src="icons/三维城市.png" alt="三维城市">
           <span>三维城市</span>
         </a>
 
         <a href="https://oskarstalberg.com/game/planet/planet.html" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=rHeIASNeN99k&format=png&color=000000" alt="三维地球">
+          <img src="icons/三维地球.png" alt="三维地球">
           <span>三维地球</span>
         </a>
 
         <a href="https://defonic.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=49466&format=png&color=000000" alt=" 白噪声">
-          <span> 白噪声</span>
+          <img src="icons/白噪声.png" alt="白噪声">
+          <span>白噪声</span>
         </a>
 
         <a href="https://purrli.com/" target="_blank" class="card">
-          <img src="https://img.icons8.com/?size=100&id=121197&format=png&color=000000" alt="白噪声-猫咪">
+          <img src="icons/白噪声猫.png" alt="白噪声-猫咪">
           <span>白噪声-猫咪</span>
+        </a>
+
+        <a href="https://toolwa.com/fluid-simulation/" target="_blank" class="card">
+          <img src="icons/流体模拟.png" alt="流体模拟">
+          <span>流体模拟</span>
         </a>
 
       </div>
     </div>
 
+    <script>
+      let themes = ['default-theme', 'dark-theme', 'colorful-theme'];
+      let current = 0;
+
+      function toggleTheme() {
+        document.body.classList.remove(themes[current]);
+        current = (current + 1) % themes.length;
+        document.body.classList.add(themes[current]);
+        localStorage.setItem('theme', themes[current]);
+      }
+
+      window.onload = function () {
+        const savedTheme = localStorage.getItem('theme') || 'default-theme';
+        document.body.classList.add(savedTheme);
+        current = themes.indexOf(savedTheme);
+      }
+    </script>
+
+
+
+
+    <!-- ========== 底部信息区 (极简版) ========== -->
+    <footer
+      style="padding: 20px 10px; text-align: center; font-size: 13px; color: #666; margin-top: 50px; background: transparent;">
+      <div style="margin-bottom: 8px;">
+        <a href="https://你的常见问题地址.com" target="_blank"
+          style="margin: 0 6px; color: #666; text-decoration: none;">常见问题</a>|
+        <a href="https://你的留言板地址.com" target="_blank"
+          style="margin: 0 6px; color: #666; text-decoration: none;">留言板</a>|
+        <a href="https://你的公众号地址.com" target="_blank"
+          style="margin: 0 6px; color: #666; text-decoration: none;">公众号</a>|
+        <a href="https://你的微博地址.com" target="_blank" style="margin: 0 6px; color: #666; text-decoration: none;">微博</a>|
+        <a href="https://你的免责声明地址.com" target="_blank"
+          style="margin: 0 6px; color: #666; text-decoration: none;">免责声明/版权</a>|
+        <a href="mailto:your.email@example.com" style="margin: 0 6px; color: #666; text-decoration: none;">联系我</a>
+      </div>
+      <div style="font-size: 12px; color: #aaa;">
+        版权所有 ©2025 萌飞导航 **********
+      </div>
+    </footer>
+
+    <style>
+      footer a:hover {
+        color: #6495ED;
+        /* hover 柔和蓝 */
+      }
+    </style>
+
+    </footer>
 </body>
+
+
+
+
 
 </html>
