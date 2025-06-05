@@ -3,7 +3,12 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>萌飞的导航</title>
+  <title>萌飞导航</title>
+  <meta name="description" content="导航页，提供各种实用网站链接，方便快捷地访问常用工具和资源。聚焦免费、在线影视、在线工具、AI应用等，旨在为用户提供一个便捷的上网入口。">
+  <meta name="keywords" content="导航, 实用网站, 在线工具, AI应用，工作工具, 免费影视, 在线影音, 学术资源, 软件下载, 游戏">
+  <meta name="robots" content="index, follow">
+  <meta name="baidu-site-verification" content="codeva-pQITwJWNL1" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <!-- 页面样式定义开始 -->
   <style>
     /* 全局设置，去除默认间距并设置盒模型为 border-box */
@@ -143,8 +148,11 @@
       border: 1px solid #ddd;
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      z-index: 999;
+      z-index: 9999;
     }
+
+
+
 
     /* 下拉列表中的图标样式 */
     .engine-dropdown img {
@@ -267,6 +275,7 @@
 
     .search-container {
       border: 1px solid transparent;
+      z-index: 10000;
       /* 透明边框 */
     }
 
@@ -285,24 +294,36 @@
     }
   </style>
 
+
+  <!-- =============自定义悬浮备注==================== -->
+  <style>
+    .tooltip {
+      position: absolute;
+      background: linear-gradient(135deg, #51bbf8, #76e0af);
+      /* 渐变背景 */
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 17px;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 99999;
+      opacity: 20%;
+      transform: scale(0.8);
+      /* 初始缩小一点 */
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      /* 透明+缩放动画 */
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      /* 阴影 */
+    }
+  </style>
+
+
 </head>
 
 
 <body>
 
-  <!-- <button onclick="toggleTheme()" style="
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  background-color: #b9cdf8;
-  color: white;
-  backdrop-filter: blur(20px); 
-  font-size: 16px;
-  cursor: pointer;
-  z-index: 9999;">切换风格</button> -->
 
   <button onclick="toggleTheme()" style="
   position: fixed;
@@ -368,6 +389,15 @@
         target="_blank">
         <div class="engine-selector" onclick="toggleDropdown()">
           <img id="current-engine-icon" src="icons/google.png" alt="搜索图标">
+          <span style="
+    position: absolute;
+    right: -12px;    /* 让箭头更靠近图标 */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;  /* 更小的字体大小 */
+    color: #aaa;
+    pointer-events: none;  /* 点击不会挡到下拉 */
+  ">▼</span>
           <div class="engine-dropdown" id="engineDropdown">
             <img src="icons/google.png" alt="Google"
               onclick="setEngine('https://www.google.com/search', 'q', this.src)">
@@ -380,31 +410,7 @@
       </form>
     </div>
 
-    <!-- ========== 搜索引擎脚本逻辑 ========== -->
-    <!-- 搜索引擎切换功能的脚本开始 -->
-    <!-- <script>
-      let currentAction = 'https://www.google.com/search';
-      let currentQueryParam = 'q';
 
-      function toggleDropdown() {
-        const dropdown = document.getElementById('engineDropdown');
-        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-      }
-
-      function setEngine(action, queryParam, iconSrc) {
-        document.getElementById('searchForm').action = action;
-        document.getElementById('searchInput').name = queryParam;
-        document.getElementById('current-engine-icon').src = iconSrc;
-        toggleDropdown();
-      }
-
-      document.addEventListener('click', function (e) {
-        const selector = document.querySelector('.engine-selector');
-        if (!selector.contains(e.target)) {
-          document.getElementById('engineDropdown').style.display = 'none';
-        }
-      });
-    </script> -->
 
     <script>
       let currentAction = 'https://www.google.com/search';
@@ -449,6 +455,31 @@
       });
     </script>
 
+    <!-- 悬浮备注 -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        document.body.appendChild(tooltip);
+
+        document.querySelectorAll('[data-tooltip]').forEach(function (el) {
+          el.addEventListener('mouseenter', function (e) {
+            tooltip.textContent = el.getAttribute('data-tooltip');
+            tooltip.style.opacity = 1;
+          });
+
+          el.addEventListener('mousemove', function (e) {
+            tooltip.style.left = (e.pageX + 10) + 'px';
+            tooltip.style.top = (e.pageY + 10) + 'px';
+          });
+
+          el.addEventListener('mouseleave', function () {
+            tooltip.style.opacity = 0;
+          });
+        });
+      });
+    </script>
+
     <!-- 搜索引擎脚本结束 -->
 
     <div class="section" id="日用">
@@ -460,13 +491,14 @@
           <span>Google</span>
         </a>
 
-        <a href="https://g.luciaz.me" loading="lazy" title="浙大镜像，答案分别是：心灵之约、水朝夕、csxy@123" target="_blank" class="card">
+        <a href="https://g.luciaz.me" loading="lazy" data-tooltip="浙大镜像，答案分别是:心灵之约、水朝夕、csxy@123" target="_blank"
+          class="card">
           <img src="icons/google镜像.png" alt="Luciaz">
           <span>谷歌镜像</span>
         </a>
 
         <a href="https://mail.163.com/" target="_blank" loading="lazy" class="card">
-          <img src="https://mail.163.com/favicon.ico" alt="163邮箱">
+          <img src="icons/网易.png" alt="163邮箱">
           <span>163邮箱</span>
         </a>
 
@@ -475,7 +507,7 @@
           <span>Gmail</span>
         </a>
         <a href="https://mail.qq.com/" target="_blank" loading="lazy" class="card">
-          <img src="https://mail.qq.com/favicon.ico" alt="QQ邮箱">
+          <img src="icons/QQ邮箱.png" alt="QQ邮箱">
           <span>QQ邮箱</span>
         </a>
 
@@ -543,12 +575,12 @@
           <span>淘宝</span>
         </a>
         <a href="https://www.jd.com/" target="_blank" loading="lazy" class="card">
-          <img src="https://www.jd.com/favicon.ico" alt="京东">
+          <img src="icons/京东.png" alt="京东">
           <span>京东</span>
         </a>
 
         <a href="https://www.kuaidi100.com/" target="_blank" loading="lazy" class="card">
-          <img src="https://www.kuaidi100.com/favicon.ico" alt="快递100">
+          <img src="icons/快递100.png" alt="快递100">
           <span>快递100</span>
         </a>
 
@@ -565,7 +597,12 @@
           <span>ChatGPT</span>
         </a>
 
-        <a href="https://www.deepseek.com/" target="_blank" loading="lazy" class="card">
+        <a href="https://gpt.lovetoome.com/" target="_blank" loading="lazy" data-tooltip="ChatGPT镜像站" class="card">
+          <img src="icons/chatGPT镜像.png" alt="ChatGPT">
+          <span>ChatGPT镜像</span>
+        </a>
+
+        <a href="https://chat.deepseek.com/" target="_blank" loading="lazy" class="card">
           <img src="icons/deepseek.png" alt="deepseek">
           <span>deepseek</span>
         </a>
@@ -600,7 +637,12 @@
           <span>Sora</span>
         </a>
 
-        <a href="https://amymind.com/" title="AI生成思维导图等" target="_blank" loading="lazy" class="card">
+        <a href="https://kontextflux.com/" target="_blank" loading="lazy" data-tooltip="免费文生图工具" class="card">
+          <img src="icons/AIpicture.png" alt="KontextFlux">
+          <span>kontextflux</span>
+        </a>
+
+        <a href="https://amymind.com/" target="_blank" loading="lazy" data-tooltip="AI生成思维导图等" class="card">
           <img src="https://amymind.com/favicon.ico" alt="Amymind">
           <span>Amymind</span>
         </a>
@@ -612,7 +654,7 @@
       <h2 class="section-title">新闻</h2>
       <div class="card-grid">
 
-        <a href="https://tophub.today/" target="_blank" loading="lazy" class="card">
+        <a href="https://tophub.today/" target="_blank" loading="lazy" data-tooltip="多平台实时热榜新闻聚合" class="card">
           <img src="https://tophub.today//favicon.ico" alt="今日热榜">
           <span>今日热榜</span>
         </a>
@@ -683,17 +725,19 @@
           <span>pdf处理</span>
         </a>
 
-        <a href="https://www.ilovepdf.com/zh-cn" target="_blank" loading="lazy" class="card">
+        <a href="https://www.ilovepdf.com/zh-cn" target="_blank" loading="lazy" data-tooltip="在线PDF处理工具" class="card">
           <img src="icons/ilovepdf.png" alt="ilovepdf">
           <span>ilovepdf</span>
         </a>
 
-        <a href="https://echarts.apache.org/zh/index.html" target="_blank" loading="lazy" class="card">
+        <a href="https://echarts.apache.org/zh/index.html" target="_blank" loading="lazy" data-tooltip="数据可视化图表生成"
+          class="card">
           <img src="icons/echarts.png" alt="echarts">
           <span>echarts</span>
         </a>
 
-        <a href="https://immersivetranslate.com/?via=xuan" target="_blank" loading="lazy" class="card">
+        <a href="https://immersivetranslate.com/?via=xuan" target="_blank" loading="lazy" data-tooltip="【推荐】文档全篇对照翻译"
+          class="card">
           <img src="icons/沉浸式翻译.png" alt="沉浸式翻译">
           <span>沉浸式翻译</span>
         </a>
@@ -718,7 +762,8 @@
           <span>在线流程图</span>
         </a>
 
-        <a href="https://www.linshiyouxiang.net/" target="_blank" loading="lazy" class="card">
+        <a href="https://www.linshiyouxiang.net/" target="_blank" loading="lazy" data-tooltip="保护隐私 提供临时邮箱服务"
+          class="card">
           <img src="icons/临时邮箱.png" alt="临时邮箱">
           <span>临时邮箱</span>
         </a>
@@ -728,7 +773,7 @@
           <span>临时短信</span>
         </a>
 
-        <a href="https://jidrop.com/" target="_blank" loading="lazy" class="card">
+        <a href="https://jidrop.com/" target="_blank" loading="lazy" data-tooltip="手机扫码跨平台隔空投送" class="card">
           <img src="icons/隔空投送.png" alt="Jidrop">
           <span>隔空投送</span>
         </a>
@@ -738,13 +783,13 @@
           <span>图表魔方</span>
         </a>
 
-        <a href="https://123apps.com/cn/" target="_blank" loading="lazy" class="card">
+        <a href="https://123apps.com/cn/" target="_blank" loading="lazy" data-tooltip="视频、音频、pdf在线处理工具" class="card">
           <img src="icons/123apps.png" alt="123apps">
           <span>123apps</span>
         </a>
 
         <a href="https://www.autodraw.com/" target="_blank" loading="lazy" class="card">
-          <img src="icons/Autodraw.png" alt="Autodraw">
+          <img src="icons/autodraw.png" alt="Autodraw">
           <span>Autodraw</span>
         </a>
 
@@ -761,6 +806,12 @@
           <img src="icons/在线录屏.png" alt="在线录屏">
           <span>在线录屏</span>
         </a>
+
+        <a href="https://echoshare.site/" target="_blank" loading="lazy" data-tooltip="在线屏幕共享,无需安装任何软件" class="card">
+          <img src="icons/micro.png" alt="echoshare">
+          <span>echoshare</span>
+        </a>
+
         <a href="https://risu.io/" target="_blank" loading="lazy" class="card">
           <img src="icons/短网址生成.png" alt="Risu">
           <span>短网址生成</span>
@@ -797,7 +848,7 @@
           <span>腾讯文档</span>
         </a>
 
-        <a href="https://www.wenshushu.cn/" target="_blank" class="card">
+        <a href="https://www.wenshushu.cn/" target="_blank" data-tooltip="不限速、无需登录共享文件" class="card">
           <img src="https://www.wenshushu.cn/favicon.ico" alt="文叔叔">
           <span>文叔叔</span>
         </a>
@@ -807,18 +858,22 @@
           <span>坚果云</span>
         </a>
 
-        <a href="https://www.ijiaodui.com/" target="_blank" class="card">
+        <a href="https://www.ijiaodui.com/" target="_blank" data-tooltip="在线文档校对工具" class="card">
           <img src="icons/爱校对.png" alt="爱校对">
           <span>爱校对</span>
         </a>
 
+        <a href="https://drawnix.com/" target="_blank" class="card">
+          <img src="icons/whiteboard.png" alt="在线白板">
+          <span>在线白板</span>
+        </a>
 
         <a href="https://pearocr.com/#/" target="_blank" class="card">
-          <img src="icons/在线OCR.png" alt="在线OCR">
+          <img src="icons/在线ocr.png" alt="在线OCR">
           <span>在线OCR</span>
         </a>
 
-        <a href="https://simpletex.cn/" target="_blank" class="card">
+        <a href="https://simpletex.cn/" target="_blank" data-tooltip="识别截图的复杂公式" class="card">
           <img src="https://simpletex.cn/favicon.ico" alt="公式识别">
           <span>公式识别</span>
         </a>
@@ -840,63 +895,69 @@
       <h2 class="section-title">学术工具</h2>
       <div class="card-grid">
 
-        <a href="https://www.cnki.net/" target="_blank" class="card">
+        <a href="https://www.cnki.net/" target="_blank" loading="lazy" class="card">
           <img src="https://www.cnki.net/favicon.ico" alt="知网">
           <span>知网</span>
         </a>
 
-        <a href="https://scholar.google.com/" target="_blank" class="card">
-          <img src="icons/谷歌学术.png" alt="谷歌学术">
+        <a href="https://scholar.google.com/" target="_blank" loading="lazy" class="card">
+          <img src="icons/谷歌学术镜像.png" alt="谷歌学术">
           <span>谷歌学术</span>
         </a>
 
-        <a href="https://pubscholar.cn/" target="_blank" class="card">
+        <a href="https://gfsoso.99lb.net/scholar.html" target="_blank" loading="lazy" class="card">
+          <img src="icons/谷歌学术.png" alt="谷歌学术">
+          <span>谷歌学术镜像</span>
+        </a>
+
+        <a href="https://pubscholar.cn/" target="_blank" loading="lazy" data-tooltip="中科院免费文献检索" class="card">
           <img src="icons/中科院.png" alt="pubscholar">
           <span>pubscholar</span>
         </a>
 
-        <a href="https://account.zhihuiya.com/#/" target="_blank" class="card">
+        <a href="https://account.zhihuiya.com/#/" target="_blank" loading="lazy" data-tooltip="专利检索" class="card">
           <img src="icons/智慧牙.png" alt="智慧牙">
           <span>智慧芽</span>
         </a>
 
-        <a href="https://scholar.cnki.net/home" target="_blank" class="card">
+        <a href="https://scholar.cnki.net/home" target="_blank" loading="lazy" class="card">
           <img src="icons/CNKI.png" alt="CNKI">
           <span>CNKI</span>
         </a>
 
-        <a href="https://www.loc.gov/collections/world-digital-library/about-this-collection/" target="_blank"
-          class="card">
+        <a href="https://www.loc.gov/collections/world-digital-library/about-this-collection/" loading="lazy"
+          target="_blank" class="card">
           <img src="icons/世界图书馆.png" alt="世界图书馆">
           <span>世界图书馆</span>
         </a>
 
-        <a href="https://www.essclick.com/" target="_blank" class="card">
+        <a href="https://www.essclick.com/" target="_blank" loading="lazy" class="card">
           <img src="https://xs.essclick.com/favicon.ico" alt="ESSClick">
           <span>ESSClick</span>
         </a>
 
-        <a href="https://panda985.com/?ref=toolsdar.cn" target="_blank" class="card">
+        <a href="https://panda985.com/?ref=toolsdar.cn" target="_blank" loading="lazy" class="card">
           <img src="https://panda985.com/favicon.ico" alt="熊猫学术">
           <span>熊猫学术</span>
         </a>
 
-        <a href="https://www.x-mol.com/" target="_blank" class="card">
+        <a href="https://www.x-mol.com/" target="_blank" loading="lazy" class="card">
           <img src="https://www.x-mol.com/favicon.ico" alt="X-MOL">
           <span>X-MOL</span>
         </a>
 
-        <a href="https://www.baiten.cn/" target="_blank" class="card">
+        <a href="https://www.baiten.cn/" target="_blank" loading="lazy" class="card">
           <img src="icons/佰腾.png" alt="佰腾网">
           <span>佰腾网</span>
         </a>
 
-        <a href="https://www.sci-hub.se/" target="_blank" class="card">
+        <a href="https://www.sci-hub.se/" target="_blank" loading="lazy" data-tooltip="文献下载" class="card">
           <img src="icons/scihub.png" alt="sci-hub">
           <span>sci-hub</span>
         </a>
 
-        <a href="https://www.ptcog.site/index.php/facilities-in-operation-public" target="_blank" class="card">
+        <a href="https://www.ptcog.site/index.php/facilities-in-operation-public" target="_blank" loading="lazy"
+          class="card">
           <img src="icons/PTCOG.png" alt="PTCOG">
           <span>PTCOG</span>
         </a>
@@ -908,57 +969,57 @@
       <h2 class="section-title">图书漫画</h2>
       <div class="card-grid">
 
-        <a href="https://z-lib.id/" target="_blank" class="card">
+        <a href="https://z-lib.id/" target="_blank" loading="lazy" class="card">
           <img src="https://z-lib.id/favicon.ico" alt="zlibrary">
           <span>zlibrary</span>
         </a>
 
-        <a href="https://24hbook.com/" target="_blank" class="card">
+        <a href="https://24hbook.com/" target="_blank" loading="lazy" class="card">
           <img src="icons/24book.png" alt="24hbook">
           <span>24hbook</span>
         </a>
 
-        <a href="https://book.tstrs.me/search" target="_blank" class="card">
+        <a href="https://book.tstrs.me/search" target="_blank" loading="lazy" class="card">
           <img src="icons/SaltyLeo的书架.png" alt="SaltyLeo 的书架">
           <span>SaltyLeo的书架</span>
         </a>
 
-        <a href="https://liber3.eth.limo/#/" target="_blank" class="card">
+        <a href="https://liber3.eth.limo/#/" target="_blank" loading="lazy" class="card">
           <img src="icons/liber3.png " alt="liber3">
           <span>liber3</span>
         </a>
 
-        <a href="https://www.jiumodiary.com/" target="_blank" class="card">
+        <a href="https://www.jiumodiary.com/" target="_blank" loading="lazy" class="card">
           <img src="icons/摩鸠搜书.png" alt="九莫日记">
           <span>摩鸠搜书</span>
         </a>
 
-        <a href="https://weread.qq.com/" target="_blank" class="card">
+        <a href="https://weread.qq.com/" target="_blank" loading="lazy" class="card">
           <img src="https://weread.qq.com/favicon.ico" alt="微信读书">
           <span>微信读书</span>
         </a>
 
-        <a href="http://www.53bk.com/baokan/" target="_blank" class="card">
+        <a href="http://www.53bk.com/baokan/" target="_blank" loading="lazy" class="card">
           <img src="icons/在线报刊.png" alt="在线报刊">
           <span>在线报刊</span>
         </a>
 
-        <a href="https://www.zgbk.com/" target="_blank" class="card">
+        <a href="https://www.zgbk.com/" target="_blank" loading="lazy" class="card">
           <img src="icons/大百科.png" alt="中国百科网">
           <span>中国百科网</span>
         </a>
 
-        <a href="https://itpanda.net/book/" target="_blank" class="card">
+        <a href="https://itpanda.net/book/" target="_blank" loading="lazy" class="card">
           <img src="icons/it熊猫.png" alt="IT熊猫">
           <span>IT熊猫</span>
         </a>
 
-        <a href="https://www.mangabz.com/" target="_blank" class="card">
+        <a href="https://www.mangabz.com/" target="_blank" loading="lazy" class="card">
           <img src="https://www.mangabz.com/favicon.ico" alt="mangabz">
           <span>mangabz</span>
         </a>
 
-        <a href="https://www.manhuagui.com/" target="_blank" class="card">
+        <a href="https://www.manhuagui.com/" target="_blank" loading="lazy" class="card">
           <img src="icons/漫画柜.png" alt="漫画柜">
           <span>漫画柜</span>
         </a>
@@ -970,82 +1031,83 @@
       <h2 class="section-title">在线影音</h2>
       <div class="card-grid">
 
-        <a href="https://cupfox.love/" target="_blank" class="card">
+        <a href="https://cupfox.love/" target="_blank" loading="lazy" class="card">
           <img src="icons/茶杯狐.png" alt="茶杯狐">
           <span>茶杯狐</span>
         </a>
 
-        <a href="https://www.netflixgc.com/" target="_blank" class="card">
+        <a href="https://www.netflixgc.com/" target="_blank" loading="lazy" class="card">
           <img src="icons/奈飞工厂.png" alt="奈飞工厂">
           <span>奈飞工厂</span>
         </a>
 
-        <a href="https://www.hdmoli.pro/" target="_blank" class="card">
+        <a href="https://www.hdmoli.pro/" target="_blank" loading="lazy" class="card">
           <img src="https://www.hdmoli.pro/favicon.ico" alt="HDmili">
           <span>HDmili</span>
         </a>
 
-        <a href="https://ddys.pro/" target="_blank" class="card">
+        <a href="https://ddys.pro/" target="_blank" loading="lazy" class="card">
           <img src="https://ddys.pro/favicon.ico" alt="低端影视">
           <span>低端影视</span>
         </a>
 
-        <a href="https://www.jdys.art/" target="_blank" class="card">
+        <a href="https://www.jdys.art/" target="_blank" loading="lazy" class="card">
           <img src="https://www.jdys.art/favicon.ico" alt="京东云">
           <span>绝对影视</span>
         </a>
 
-        <a href="https://www.czzymovie.com/" target="_blank" class="card">
+        <a href="https://www.czzymovie.com/" target="_blank" loading="lazy" class="card">
           <img src="https://www.czzymovie.com/favicon.ico" alt="厂长资源">
           <span>厂长资源</span>
         </a>
 
-        <a href="https://www.zxzjhd.com/" target="_blank" class="card">
+        <a href="https://www.zxzjhd.com/" target="_blank" loading="lazy" class="card">
           <img src="icons/在线之家.png" alt="在线之家">
           <span>在线之家</span>
         </a>
 
-        <a href="https://www.renren.pro/" target="_blank" class="card">
+        <a href="https://www.renren.pro/" target="_blank" loading="lazy" class="card">
           <img src="https://www.renren.pro/favicon.ico" alt="人人影视在线">
           <span>人人影视在线</span>
         </a>
 
-        <a href="http://www.iyinghua.com/" target="_blank" class="card">
+        <a href="http://www.iyinghua.com/" target="_blank" loading="lazy" class="card">
           <img src="icons/樱花动漫.png" alt="樱花动漫">
           <span>樱花动漫</span>
         </a>
 
-        <a href="https://www.agefans.la/" target="_blank" class="card">
+        <a href="https://www.agefans.la/" target="_blank" loading="lazy" class="card">
           <img src="https://www.agefans.la/favicon.ico" alt="AGE动漫">
           <span>AGE动漫</span>
         </a>
 
-        <a href="https://audiomack.com/" title="按照歌手专辑进行收听" target="_blank" class="card">
+        <a href="https://audiomack.com/" target="_blank" loading="lazy" data-tooltip="按照歌手专辑进行收听" class="card">
           <img src="https://audiomack.com/favicon.ico" alt="audiomack">
           <span>audiomack</span>
         </a>
 
-        <a href="https://open.spotify.com/" target="_blank" class="card">
+        <a href="https://open.spotify.com/" target="_blank" loading="lazy" data-tooltip="全球最大的音乐流媒体平台" class="card">
           <img src="https://open.spotify.com/favicon.ico" alt="Spotify">
           <span>Spotify</span>
         </a>
 
-        <a href="https://happy.alang.run/#/" target="_blank" class="card">
+        <a href="https://happy.alang.run/#/" target="_blank" loading="lazy" data-tooltip="创建房间和好友一块听歌吧" class="card">
           <img src="icons/一起听歌.png" alt="一起听歌吧">
           <span>一起听歌吧</span>
         </a>
 
-        <a href="https://www.fangpi.net/" target="_blank" class="card">
+        <a href="https://www.fangpi.net/" target="_blank" loading="lazy" class="card">
           <img src="https://www.fangpi.net/favicon.ico" alt="放屁音乐网">
           <span>放屁音乐网</span>
         </a>
 
-        <a href="https://www.tunemymusic.com/zh/transfer" target="_blank" class="card">
+        <a href="https://www.tunemymusic.com/zh/transfer" target="_blank" loading="lazy" class="card">
           <img src="icons/歌单转换.png" alt="歌单转换">
           <span>歌单转换</span>
         </a>
 
-        <a href="https://jx.m3u8.tv/jiexi/?url&ref=" title="网址=后面添加优爱腾资源网址" target="_blank" class="card">
+        <a href="https://jx.m3u8.tv/jiexi/?url&ref=" target="_blank" loading="lazy" data-tooltip="网址=后面添加优爱腾资源网址"
+          class="card">
           <img src="icons/会员解析.png" alt="解析">
           <span>会员解析</span>
         </a>
@@ -1057,65 +1119,65 @@
       <h2 class="section-title">影音下载</h2>
       <div class="card-grid">
 
-        <a href="https://www.gying.in/" target="_blank" class="card">
+        <a href="https://www.gying.in/" target="_blank" loading="lazy" class="card">
           <img src="https://www.gying.in/favicon.ico" alt="观影GYING">
           <span>观影GYING</span>
         </a>
 
-        <a href="https://yyets.click/search" target="_blank" class="card">
+        <a href="https://yyets.click/search" target="_blank" loading="lazy" class="card">
           <img src="icons/人人影视.png" alt="人人影视">
           <span>人人影视</span>
         </a>
 
-        <a href="https://www.seedhub.cc/" target="_blank" class="card">
+        <a href="https://www.seedhub.cc/" target="_blank" loading="lazy" class="card">
           <img src="https://www.seedhub.cc/favicon.ico" alt="seedhub">
           <span>seedhub</span>
         </a>
 
-        <a href="https://mikanani.me/?ref=toolsdar.cn" target="_blank" class="card">
+        <a href="https://mikanani.me/?ref=toolsdar.cn" target="_blank" loading="lazy" class="card">
           <img src="https://mikanani.me/favicon.ico" alt="Mikanani">
           <span>蜜柑计划</span>
         </a>
 
-        <a href="https://www.xl720.com/" target="_blank" class="card">
+        <a href="https://www.xl720.com/" target="_blank" loading="lazy" class="card">
           <img src="https://www.xl720.com/favicon.ico" alt="迅雷电影天堂">
           <span>迅雷电影天堂</span>
         </a>
 
-        <a href="https://www.dygod.net/" target="_blank" class="card">
+        <a href="https://www.dygod.net/" target="_blank" loading="lazy" class="card">
           <img src="icons/电影天堂.png" alt="电影天堂">
           <span>电影天堂</span>
         </a>
 
-        <a href="https://www.btbuluo.net/" target="_blank" class="card">
+        <a href="https://www.btbuluo.net/" target="_blank" loading="lazy" class="card">
           <img src="icons/bt部落.png" alt="BT部落天堂">
           <span>BT部落天堂</span>
         </a>
 
-        <a href="https://www.yinfans.me/" target="_blank" class="card">
+        <a href="https://www.yinfans.me/" target="_blank" loading="lazy" class="card">
           <img src="https://www.yinfans.me/favicon.ico" alt="音思范">
           <span>音思范</span>
         </a>
 
-        <a href="https://www.niceso.net/" target="_blank" class="card">
+        <a href="https://www.niceso.net/" target="_blank" loading="lazy" class="card">
           <img src="icons/千帆搜索.png" alt="千帆搜索">
           <span>千帆搜索</span>
         </a>
 
-        <a href="https://www.haokongbu.top/" target="_blank" class="card">
+        <a href="https://www.haokongbu.top/" target="_blank" loading="lazy" class="card">
           <img src="https://www.haokongbu.top/favicon.ico" alt="好空部">
           <span>好恐怖</span>
         </a>
 
-        <a href="https://xiongdipan.com/" target="_blank" class="card">
+        <a href="https://xiongdipan.com/" target="_blank" loading="lazy" class="card">
           <img src="https://www.xiongdipan.com/favicon.ico" alt="兄弟盘">
           <span>兄弟盘</span>
         </a>
-        <a href="https://www.alipansou.com/" target="_blank" class="card">
+        <a href="https://www.alipansou.com/" target="_blank" loading="lazy" class="card">
           <img src="icons/猫狸3.png" alt="猫狸盘搜">
           <span>猫狸盘搜</span>
         </a>
-        <a href="https://pan666.net/t/video" target="_blank" class="card">
+        <a href="https://pan666.net/t/video" target="_blank" loading="lazy" class="card">
           <img src="https://pan666.net/favicon.ico" alt="阿里盘搜">
           <span>阿里盘搜</span>
         </a>
@@ -1172,6 +1234,11 @@
           <span>图标库</span>
         </a>
 
+        <a href="https://www.iconfont.cn/" target="_blank" class="card">
+          <img src="icons/Iconfont.png" alt="阿里图标库">
+          <span>阿里图标库</span>
+        </a>
+
         <a href="https://pictogram2.com/?lang=en" target="_blank" class="card">
           <img src="icons/日式图标.png" alt="日式图标">
           <span>日式图标</span>
@@ -1200,6 +1267,11 @@
         <a href="https://www.mixamo.com/#/?page=1&type=Character" target="_blank" class="card">
           <img src="https://img.icons8.com/?size=100&id=Q0BcaxTxORjc&format=png&color=000000" alt="3D模型">
           <span>3D模型</span>
+        </a>
+
+        <a href="https://taira-komori.jpn.org/freesoundcn.html" target="_blank" class="card">
+          <img src="icons/音效2.png" alt="Freesound">
+          <span>免费音效下载</span>
         </a>
 
         <a href="https://zhongguose.com/" target="_blank" class="card">
@@ -1252,11 +1324,20 @@
           <span>网易见外</span>
         </a>
 
+        <a href="https://easyvoice.ioplus.tech/generate" target="_blank" data-tooltip="超长文本转语音，可以做有声书" class="card">
+          <img src="icons/语音合成.png" alt="语音合成">
+          <span>文字转语音</span>
+        </a>
+
         <a href="https://www.iloveimg.com/zh-cn" target="_blank" class="card">
           <img src="https://img.icons8.com/?size=100&id=110570&format=png&color=000000" alt="图片处理合集">
           <span>图片处理合集</span>
         </a>
 
+        <a href="https://deviceshots.com/" target="_blank" class="card">
+          <img src="icons/带壳截图.png" alt="带壳截图">
+          <span>带壳截图</span>
+        </a>
 
         <a href="https://zhengjianzhao.com/index.php?r=site%2Findex" target="_blank" class="card">
           <img src="https://img.icons8.com/?size=100&id=KNbQPlodRz7j&format=png&color=000000" alt="在线证件照">
@@ -1275,12 +1356,13 @@
       <h2 class="section-title">软件下载</h2>
       <div class="card-grid">
 
-        <a href="https://greasyfork.org/zh-CN/help/installing-user-scripts" target="_blank" class="card">
+        <a href="https://greasyfork.org/zh-CN/help/installing-user-scripts" target="_blank" data-tooltip="油猴插件脚本下载，功能丰富"
+          class="card">
           <img src="icons/油猴.png" alt="greasyfork">
           <span>greasyfork</span>
         </a>
 
-        <a href="https://macwk.cn/" target="_blank" class="card">
+        <a href="https://macwk.cn/" target="_blank" class="card" data-tooltip="Mac软件破解资源下载站">
           <img src="https://macwk.cn/favicon.ico" alt="macwk">
           <span>macwk</span>
         </a>
@@ -1301,7 +1383,7 @@
           <span>小众软件</span>
         </a>
 
-        <a href="https://www.ruancang.net/?ref=toolsdar.cn#" target="_blank" class="card">
+        <a href="https://www.ruancang.net/?ref=toolsdar.cn#" target="_blank" class="card" data-tooltip="打工人必备软件">
           <img src="https://www.ruancang.net/favicon.ico" alt="软件源">
           <span>软件仓</span>
         </a>
@@ -1316,12 +1398,12 @@
           <span>浏览器插件</span>
         </a>
 
-        <a href="https://www.rcuts.com/?ref=toolsdar.cn" target="_blank" class="card">
+        <a href="https://www.rcuts.com/?ref=toolsdar.cn" target="_blank" class="card" data-tooltip="苹果手机快捷指令下载">
           <img src="https://www.rcuts.com/favicon.ico" alt="Rcuts">
           <span>快捷指令</span>
         </a>
 
-        <a href="https://rutracker.org/forum/index.php" target="_blank" class="card">
+        <a href="https://rutracker.org/forum/index.php" target="_blank" class="card" data-tooltip="俄罗斯最大的BT种子下载站">
           <img src="icons/Rutracker.png" alt="Rutracker">
           <span>Rutracker</span>
         </a>
@@ -1333,47 +1415,47 @@
       <h2 class="section-title">游戏</h2>
       <div class="card-grid">
 
-        <a href="https://nodes-escape.hzfe.org/" target="_blank" class="card">
+        <a href="https://nodes-escape.hzfe.org/" target="_blank" loading="lazy" class="card">
           <img src="icons/密室逃脱.png" alt="文字密室逃脱">
           <span>文字密室逃脱</span>
         </a>
 
-        <a href="https://lab.ur1.fun/FCGames/#/" target="_blank" class="card">
+        <a href="https://lab.ur1.fun/FCGames/#/" target="_blank" loading="lazy" class="card">
           <img src="icons/在线经典游戏.png" alt="在线经典游戏">
           <span>在线经典游戏</span>
         </a>
 
-        <a href="https://www.yikm.net/" target="_blank" class="card">
+        <a href="https://www.yikm.net/" target="_blank" loading="lazy" class="card">
           <img src="icons/小霸王.png" alt="小霸王">
           <span>小霸王</span>
         </a>
 
-        <a href="http://weavesilk.com/" target="_blank" class="card">
-          <img src="http://weavesilk.com/favicon.ico" alt="weavesilk">
+        <a href="http://weavesilk.com/" target="_blank" loading="lazy" class="card">
+          <img src="icons/weavesilk.png" alt="weavesilk">
           <span>weavesilk</span>
         </a>
 
-        <a href="https://www.adultswim.com/etcetera/choir/" target="_blank" class="card">
+        <a href="https://www.adultswim.com/etcetera/choir/" target="_blank" loading="lazy" class="card">
           <img src="icons/choir.png" alt="choir">
           <span>choir</span>
         </a>
 
-        <a href="https://pissang.github.io/little-big-city/" target="_blank" class="card">
+        <a href="https://pissang.github.io/little-big-city/" target="_blank" loading="lazy" class="card">
           <img src="icons/三维城市.png" alt="三维城市">
           <span>三维城市</span>
         </a>
 
-        <a href="https://oskarstalberg.com/game/planet/planet.html" target="_blank" class="card">
+        <a href="https://oskarstalberg.com/game/planet/planet.html" target="_blank" loading="lazy" class="card">
           <img src="icons/三维地球.png" alt="三维地球">
           <span>三维地球</span>
         </a>
 
-        <a href="https://defonic.com/" target="_blank" class="card">
+        <a href="https://defonic.com/" target="_blank" loading="lazy" class="card">
           <img src="icons/白噪声.png" alt="白噪声">
           <span>白噪声</span>
         </a>
 
-        <a href="https://purrli.com/" target="_blank" class="card">
+        <a href="https://purrli.com/" target="_blank" loading="lazy" class="card">
           <img src="icons/白噪声猫.png" alt="白噪声-猫咪">
           <span>白噪声-猫咪</span>
         </a>
@@ -1381,6 +1463,11 @@
         <a href="https://toolwa.com/fluid-simulation/" target="_blank" class="card">
           <img src="icons/流体模拟.png" alt="流体模拟">
           <span>流体模拟</span>
+        </a>
+
+        <a href="https://withoutad.com/?locale=zh-CN" target="_blank" data-tooltip="数学表达式+益智游戏" class="card">
+          <img src="icons/Math-1.png" alt="去广告">
+          <span>益智小游戏</span>
         </a>
 
       </div>
@@ -1407,23 +1494,21 @@
 
 
 
+
     <!-- ========== 底部信息区 (极简版) ========== -->
     <footer
       style="padding: 20px 10px; text-align: center; font-size: 13px; color: #666; margin-top: 50px; background: transparent;">
       <div style="margin-bottom: 8px;">
-        <a href="https://你的常见问题地址.com" target="_blank"
-          style="margin: 0 6px; color: #666; text-decoration: none;">常见问题</a>|
-        <a href="https://你的留言板地址.com" target="_blank"
-          style="margin: 0 6px; color: #666; text-decoration: none;">留言板</a>|
-        <a href="https://你的公众号地址.com" target="_blank"
-          style="margin: 0 6px; color: #666; text-decoration: none;">公众号</a>|
-        <a href="https://你的微博地址.com" target="_blank" style="margin: 0 6px; color: #666; text-decoration: none;">微博</a>|
-        <a href="https://你的免责声明地址.com" target="_blank"
-          style="margin: 0 6px; color: #666; text-decoration: none;">免责声明/版权</a>|
-        <a href="mailto:your.email@example.com" style="margin: 0 6px; color: #666; text-decoration: none;">联系我</a>
+        <a href="常见问题.html" target="_blank" style="margin: 0 6px; color: #666; text-decoration: none;">常见问题</a>|
+        <a href="留言板.html" target="_blank" style="margin: 0 6px; color: #666; text-decoration: none;">留言板</a>|
+        <a href="javascript:void(0)" onclick="showQRCode()"
+          style="margin: 0 6px; color: #666; text-decoration: none;">请作者喝咖啡</a>|
+
+        <a href="免责声明.html" target="_blank" style="margin: 0 6px; color: #666; text-decoration: none;">免责声明</a>|
+        <a href="mailto:netf111@163.com" style="margin: 0 6px; color: #666; text-decoration: none;">联系我</a>
       </div>
       <div style="font-size: 12px; color: #aaa;">
-        版权所有 ©2025 萌飞导航 **********
+        版权所有 ©2025 萌飞导航
       </div>
     </footer>
 
@@ -1435,6 +1520,143 @@
     </style>
 
     </footer>
+
+    <!-- footer 公众号二维码 -->
+    <div id="qrcodeModal"
+      style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 99999; align-items: center; justify-content: center;">
+      <div
+        style="position: relative; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 0 20px rgba(0,0,0,0.2);">
+        <img src="icons/收款码.png" alt="公众号二维码" style="width: 200px; height: 200px;">
+      </div>
+    </div>
+
+
+    <script>
+      function showQRCode() {
+        const modal = document.getElementById('qrcodeModal');
+        modal.style.display = 'flex';
+      }
+      window.addEventListener('click', function (event) {
+        const modal = document.getElementById('qrcodeModal');
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    </script>
+
+    <!-- =========底部二维码设置完毕分割线====== -->
+
+
+
+    <!-- 烟花特效 -->
+    <canvas id="fireworks-canvas"
+      style="position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none;z-index:99998;"></canvas>
+    <script>
+      (function () {
+        const canvas = document.getElementById('fireworks-canvas');
+        const ctx = canvas.getContext('2d');
+        let W = window.innerWidth, H = window.innerHeight;
+        function resize() {
+          W = window.innerWidth;
+          H = window.innerHeight;
+          canvas.width = W;
+          canvas.height = H;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        // 烟花粒子
+        function randomColor() {
+          const colors = ['#ff5252', '#ffd740', '#69f0ae', '#40c4ff', '#b388ff', '#ff80ab', '#fff176', '#ffab91', '#a7ffeb', '#f8bbd0'];
+          return colors[Math.floor(Math.random() * colors.length)];
+        }
+        class Particle {
+          constructor(x, y, color, angle, speed) {
+            this.x = x;
+            this.y = y;
+            this.color = color;
+            this.angle = angle;
+            this.speed = speed;
+            this.radius = 2 + Math.random() * 2;
+            this.alpha = 1;
+            this.life = 0;
+            this.gravity = 0.02 + Math.random() * 0.02;
+          }
+          update() {
+            this.x += Math.cos(this.angle) * this.speed;
+            this.y += Math.sin(this.angle) * this.speed + this.gravity * this.life;
+            this.alpha -= 0.015 + Math.random() * 0.01;
+            this.life++;
+          }
+          draw(ctx) {
+            ctx.save();
+            ctx.globalAlpha = Math.max(this.alpha, 0);
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+            ctx.restore();
+          }
+        }
+        class Firework {
+          constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.particles = [];
+            const count = 30 + Math.floor(Math.random() * 20);
+            for (let i = 0; i < count; i++) {
+              const angle = (Math.PI * 2) * (i / count);
+              const speed = 2 + Math.random() * 2.5;
+              this.particles.push(new Particle(x, y, randomColor(), angle, speed));
+            }
+          }
+          update() {
+            this.particles.forEach(p => p.update());
+            this.particles = this.particles.filter(p => p.alpha > 0);
+          }
+          draw(ctx) {
+            this.particles.forEach(p => p.draw(ctx));
+          }
+          done() {
+            return this.particles.length === 0;
+          }
+        }
+        // 发射烟花
+        let fireworks = [];
+        function launchFirework() {
+          const x = 80 + Math.random() * (W - 160);
+          const y = H * 0.3 + Math.random() * H * 0.2;
+          fireworks.push(new Firework(x, y));
+        }
+        // 动画循环
+        function animate() {
+          ctx.clearRect(0, 0, W, H);
+          fireworks.forEach(fw => { fw.update(); fw.draw(ctx); });
+          fireworks = fireworks.filter(fw => !fw.done());
+          requestAnimationFrame(animate);
+        }
+        animate();
+
+        // 左左右右检测
+        let seq = [];
+        const code = ['ArrowLeft', 'ArrowLeft', 'ArrowRight', 'ArrowRight'];
+        window.addEventListener('keydown', function (e) {
+          seq.push(e.key);
+          if (seq.length > code.length) seq.shift();
+          if (seq.join(',') === code.join(',')) {
+            // 连续发射5组烟花
+            for (let i = 0; i < 10; i++) {
+              setTimeout(launchFirework, i * 180);
+            }
+            seq = [];
+          }
+        });
+      })();
+    </script>
+
+
+
+
 </body>
 
 
